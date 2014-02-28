@@ -16,7 +16,10 @@ class GitUrlGenerator extends AbstractGitUrlGenerator
      */
     public function getName(Repository $repository)
     {
-        $name = basename($repository->getPath());
+        $name = $repository->getSlug();
+        if (!$name) {
+            $name = basename($repository->getPath());
+        }
 
         if (preg_match('/^(.*)\.git$/', $name, $vars)) {
             return $vars[1];
